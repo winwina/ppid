@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulir Permohonan Informasi Publik</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    }
+    .input-field {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      border-radius: 0.5rem;
+      border: 1px solid #cbd5e1;
+      background-color: #ffffff;
+      transition: all 0.2s ease;
+      font-size: 0.875rem;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+    .custom-checkbox, .custom-radio {
+      accent-color: #0284c7;
+      width: 1.125rem;
+      height: 1.125rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="py-8 px-4 sm:px-6 lg:px-8">
+
+  <div class="max-w-4xl mx-auto space-y-6">
+    
+    <!-- Top Modern Header -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+      <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-6 mb-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-semibold mb-3">
+            <i data-lucide="shield-check" class="w-4 h-4"></i> Layanan Informasi Resmi
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Formulir Permohonan Informasi</h1>
+          <p class="text-sm text-slate-500 mt-1">Silakan lengkapi data di bawah ini untuk mengajukan permohonan informasi publik.</p>
+        </div>
+        <!-- Action Header Buttons -->
+        <div class="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+          <button id="configBtnHeader" onclick="openConfigModal()" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium rounded-xl transition shadow-sm justify-center">
+            <i data-lucide="settings" class="w-4 h-4"></i>
+            <span>Pengaturan Spreadsheet</span>
+          </button>
+          <button onclick="openLoginModal()" class="inline-flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium rounded-xl transition shadow-sm justify-center">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            <span>Dashboard Admin</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 text-xs text-slate-600 bg-slate-50 p-3.5 rounded-xl border border-slate-200/60">
+        <i data-lucide="info" class="w-4 h-4 text-brand-600 shrink-0"></i>
+        <span>Tanda bintang merah (<span class="text-red-500 font-bold">*</span>) menunjukkan kolom wajib diisi. Data Anda akan terkirim dengan aman.</span>
+      </div>
+    </div>
+
+    <!-- Main Form -->
+    <form id="infoForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+      
+      <!-- SECTION 1: Data Pemohon -->
+      <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+          <div class="p-2.5 bg-brand-50 rounded-xl text-brand-600">
+            <i data-lucide="user" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-800">1. Data Pemohon Informasi</h2>
+            <p class="text-xs text-slate-500">Identitas diri atau badan hukum pemohon</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Nama Lengkap -->
+          <div class="md:col-span-2">
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              Nama Lengkap / Badan Publik Pemohon <span class="text-red-500">*</span>
+            </label>
+            <input type="text" name="nama_lengkap" required placeholder="Masukkan nama lengkap Anda atau nama lembaga" class="input-field">
+          </div>
+
+          <!-- No KTP -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              No. KTP / SIM / PASPOR <span class="text-slate-400 font-normal lowercase">(perorangan)</span>
+            </label>
+            <input type="text" name="no_ktp" placeholder="Contoh: 3271234567890001" class="input-field">
+          </div>
+
+          <!-- No Pengesahan -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              No. Pengesahan <span class="text-slate-400 font-normal lowercase">(badan hukum)</span>
+            </label>
+            <input type="text" name="no_pengesahan" placeholder="Nomor SK Kemenkumham / Legalitas" class="input-field">
+          </div>
+
+          <!-- Alamat -->
+          <div class="md:col-span-2">
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              Alamat Lengkap <span class="text-red-500">*</span>
+            </label>
+            <input type="text" name="alamat" required placeholder="Jalan, RT/RW, Kelurahan, Kecamatan, Kota/Kabupaten" class="input-field">
+          </div>
+
+          <!-- Pekerjaan -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              Pekerjaan <span class="text-red-500">*</span>
+            </label>
+            <input type="text" name="pekerjaan" required placeholder="PNS, Swasta, Mahasiswa, Wartawan, dll." class="input-field">
+          </div>
+
+          <!-- No Telepon -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              Nomor Telepon / WhatsApp <span class="text-red-500">*</span>
+            </label>
+            <input type="tel" name="no_hp" required placeholder="081234567890" class="input-field">
+          </div>
+
+          <!-- Email -->
+          <div class="md:col-span-2">
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              Alamat Email <span class="text-red-500">*</span>
+            </label>
+            <input type="email" name="email" required placeholder="nama@email.com" class="input-field">
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Detail Permohonan -->
+      <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+          <div class="p-2.5 bg-brand-50 rounded-xl text-brand-600">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-800">2. Rincian Permohonan Informasi</h2>
+            <p class="text-xs text-slate-500">Tentukan jenis dan rincian informasi yang diperlukan</p>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Jenis Informasi -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-3">
+              Jenis Informasi <span class="text-red-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                <input type="radio" name="jenis_informasi" value="Permohonan Informasi Publik" required class="custom-radio">
+                <span class="text-sm font-medium text-slate-700">Permohonan Informasi Publik</span>
+              </label>
+              <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                <input type="radio" name="jenis_informasi" value="Konfirmasi/Klarifikasi/Dugaan/lainnya" class="custom-radio">
+                <span class="text-sm font-medium text-slate-700">Konfirmasi / Klarifikasi / Dugaan / Lainnya</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Informasi yang dibutuhkan -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              Informasi yang Dibutuhkan <span class="text-red-500">*</span>
+            </label>
+            <textarea name="informasi_dibutuhkan" rows="3" required placeholder="Tuliskan secara spesifik informasi yang Anda minta..." class="input-field"></textarea>
+          </div>
+
+          <!-- Cara Memperoleh Informasi -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-3">
+              Cara Memperoleh Informasi <span class="text-red-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                <input type="radio" name="cara_memperoleh" value="Melihat/membaca/mendengarkan/mencatat" required class="custom-radio">
+                <span class="text-sm font-medium text-slate-700">Melihat / membaca / mendengarkan / mencatat</span>
+              </label>
+              <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                <input type="radio" name="cara_memperoleh" value="Mendapatkan salinan informasi (hardcopy/softcopy)" class="custom-radio">
+                <span class="text-sm font-medium text-slate-700">Mendapatkan salinan (Hardcopy / Softcopy)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Cara Mendapatkan Salinan Informasi -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              Cara Mendapatkan Salinan Informasi <span class="text-red-500">*</span> <span class="text-xs text-slate-400 lowercase font-normal">(pilih satu atau lebih)</span>
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+              <label class="flex items-center gap-2 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition text-xs font-medium text-slate-700">
+                <input type="checkbox" name="cara_salinan" value="Mengambil Langsung" class="custom-checkbox">
+                <span>Langsung</span>
+              </label>
+              <label class="flex items-center gap-2 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition text-xs font-medium text-slate-700">
+                <input type="checkbox" name="cara_salinan" value="Kurir" class="custom-checkbox">
+                <span>Kurir</span>
+              </label>
+              <label class="flex items-center gap-2 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition text-xs font-medium text-slate-700">
+                <input type="checkbox" name="cara_salinan" value="Pos" class="custom-checkbox">
+                <span>Pos</span>
+              </label>
+              <label class="flex items-center gap-2 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition text-xs font-medium text-slate-700">
+                <input type="checkbox" name="cara_salinan" value="Email" class="custom-checkbox">
+                <span>Email</span>
+              </label>
+              <label class="flex items-center gap-2 p-3 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition text-xs font-medium text-slate-700">
+                <input type="checkbox" name="cara_salinan" value="Faksimili" class="custom-checkbox">
+                <span>Faksimili</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Tujuan Permohonan -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              Tujuan Permohonan Informasi <span class="text-red-500">*</span> <span class="text-xs text-slate-400 lowercase font-normal">(pilih satu atau lebih)</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                <input type="checkbox" name="tujuan_permohonan" value="Pengawasan" class="custom-checkbox">
+                <span class="text-sm font-medium text-slate-700">Pengawasan</span>
+              </label>
+              <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                <input type="checkbox" name="tujuan_permohonan" value="Penelitian Skripsi / Tesis" class="custom-checkbox">
+                <span class="text-sm font-medium text-slate-700">Skripsi / Tesis</span>
+              </label>
+              <label class="flex items-center gap-3 p-3.5 border border-slate-200 rounded-xl hover:bg-slate-50 cursor-pointer transition">
+                <input type="checkbox" name="tujuan_permohonan" value="Observasi / Riset" class="custom-checkbox">
+                <span class="text-sm font-medium text-slate-700">Observasi / Riset</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Unggah Berkas Pendukung -->
+      <div class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+          <div class="p-2.5 bg-brand-50 rounded-xl text-brand-600">
+            <i data-lucide="paperclip" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-800">3. Unggah Berkas Pendukung</h2>
+            <p class="text-xs text-slate-500">Unggah dokumen sesuai dengan kategori pendaftar (Maksimal 10 MB per berkas)</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <!-- File 1: KTP -->
+          <div class="p-4 border border-slate-200 rounded-xl hover:border-brand-500/50 transition bg-white/50">
+            <div class="mb-3">
+              <span class="text-xs font-bold text-slate-800 block">Upload KTP</span>
+              <span class="text-[11px] text-slate-500">(Khusus Pemohon Perorangan)</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold flex items-center gap-2 transition border border-brand-200">
+                <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                <span>Pilih File</span>
+                <input type="file" id="file_ktp" onchange="updateFileName(this, 'file_ktp_name')" class="hidden">
+              </label>
+              <span id="file_ktp_name" class="text-xs text-slate-400 truncate">Belum ada file</span>
+            </div>
+          </div>
+
+          <!-- File 2: Kemenkumham -->
+          <div class="p-4 border border-slate-200 rounded-xl hover:border-brand-500/50 transition bg-white/50">
+            <div class="mb-3">
+              <span class="text-xs font-bold text-slate-800 block">Upload Surat Kemenkumham</span>
+              <span class="text-[11px] text-slate-500">(Khusus Badan Hukum)</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold flex items-center gap-2 transition border border-brand-200">
+                <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                <span>Pilih File</span>
+                <input type="file" id="file_kemenkumham" onchange="updateFileName(this, 'file_kemenkumham_name')" class="hidden">
+              </label>
+              <span id="file_kemenkumham_name" class="text-xs text-slate-400 truncate">Belum ada file</span>
+            </div>
+          </div>
+
+          <!-- File 3: Kesbangpol -->
+          <div class="p-4 border border-slate-200 rounded-xl hover:border-brand-500/50 transition bg-white/50">
+            <div class="mb-3">
+              <span class="text-xs font-bold text-slate-800 block">Upload Surat Kesbangpol</span>
+              <span class="text-[11px] text-slate-500">(Khusus Organisasi)</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold flex items-center gap-2 transition border border-brand-200">
+                <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                <span>Pilih File</span>
+                <input type="file" id="file_kesbangpol" onchange="updateFileName(this, 'file_kesbangpol_name')" class="hidden">
+              </label>
+              <span id="file_kesbangpol_name" class="text-xs text-slate-400 truncate">Belum ada file</span>
+            </div>
+          </div>
+
+          <!-- File 4: Kartu Pers -->
+          <div class="p-4 border border-slate-200 rounded-xl hover:border-brand-500/50 transition bg-white/50">
+            <div class="mb-3">
+              <span class="text-xs font-bold text-slate-800 block">Upload Kartu Pers / Dewan Pers</span>
+              <span class="text-[11px] text-slate-500">(Khusus Media / Insan Pers)</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="cursor-pointer px-3.5 py-2 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold flex items-center gap-2 transition border border-brand-200">
+                <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                <span>Pilih File</span>
+                <input type="file" id="file_pers" onchange="updateFileName(this, 'file_pers_name')" class="hidden">
+              </label>
+              <span id="file_pers_name" class="text-xs text-slate-400 truncate">Belum ada file</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 pt-4">
+        <button type="reset" onclick="clearForm()" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 font-semibold text-sm transition">
+          Reset Formulir
+        </button>
+        <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm rounded-xl shadow-lg shadow-brand-500/25 transition flex items-center justify-center gap-2">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Kirim Permohonan</span>
+        </button>
+      </div>
+
+    </form>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-400 py-6 space-y-2">
+      <p>© 2026 Layanan Informasi Publik. Seluruh Hak Cipta Dilindungi.</p>
+      <!-- Link Rahasia Admin untuk membuka pengaturan kembali -->
+      <div class="pt-2 flex items-center justify-center gap-4">
+        <button onclick="openConfigModal()" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-600 text-[11px] transition">
+          <i data-lucide="lock" class="w-3 h-3"></i>
+          <span>Pengaturan Admin Spreadsheet</span>
+        </button>
+        <span class="text-slate-300">•</span>
+        <button onclick="openLoginModal()" class="inline-flex items-center gap-1.5 text-slate-400 hover:text-slate-600 text-[11px] transition">
+          <i data-lucide="user-check" class="w-3 h-3"></i>
+          <span>Login Admin</span>
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Modal Login Admin -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center hidden p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full space-y-5 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-2 text-brand-600">
+          <i data-lucide="shield-lock" class="w-6 h-6"></i>
+          <div>
+            <h3 class="font-bold text-lg text-slate-800">Login Administrator</h3>
+            <p class="text-xs text-slate-500">Masuk untuk melihat kelola data permohonan</p>
+          </div>
+        </div>
+        <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <form onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Username</label>
+          <input type="text" id="loginUsername" required placeholder="Masukkan username" class="input-field">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Password</label>
+          <input type="password" id="loginPassword" required placeholder="Masukkan password" class="input-field">
+        </div>
+        <div id="loginError" class="text-xs text-red-500 hidden bg-red-50 p-2.5 rounded-lg border border-red-200">
+          Username atau password salah!
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeLoginModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold text-slate-600 transition">Batal</button>
+          <button type="submit" class="px-5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-semibold shadow transition">Masuk Dashboard</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Dashboard Admin -->
+  <div id="dashboardModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md flex items-center justify-center hidden p-4 sm:p-6 z-50">
+    <div class="bg-white rounded-2xl max-w-6xl w-full h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <!-- Dashboard Topbar -->
+      <div class="bg-slate-900 text-white p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-brand-600/30 rounded-xl text-brand-400">
+            <i data-lucide="layout-dashboard" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold">Dashboard Admin Permohonan Informasi</h2>
+            <p class="text-xs text-slate-400">Pantau dan kelola seluruh data masuk</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 self-end sm:self-auto">
+          <button onclick="openConfigModal()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium flex items-center gap-1.5 transition">
+            <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+            <span>Settings Sheet</span>
+          </button>
+          <button onclick="handleLogout()" class="px-3.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white rounded-xl text-xs font-medium flex items-center gap-1.5 transition">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>Keluar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dashboard Body -->
+      <div class="p-4 sm:p-6 flex-1 flex flex-col min-h-0 bg-slate-50 space-y-4">
+        
+        <!-- Controls Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 shrink-0">
+          <div class="relative flex-1 max-w-md">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3 text-slate-400"></i>
+            <input type="text" id="dashboardSearch" onkeyup="filterDashboardData()" placeholder="Cari nama, email, atau no hp..." class="input-field pl-10 bg-white">
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-3 text-xs text-slate-600">
+            <span id="totalRecordsBadge" class="bg-brand-50 text-brand-700 px-3 py-1.5 rounded-lg border border-brand-200 font-semibold">0 Permohonan</span>
+            <button onclick="loadDashboardData()" class="px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-100 rounded-lg text-slate-700 font-medium flex items-center gap-1.5 transition shadow-sm">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Table View -->
+        <div class="flex-1 overflow-auto border border-slate-200 rounded-xl bg-white shadow-sm">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider sticky top-0 border-b border-slate-200">
+              <tr>
+                <th class="p-3.5">Tanggal</th>
+                <th class="p-3.5">Nama / Lembaga</th>
+                <th class="p-3.5">Kontak</th>
+                <th class="p-3.5">Jenis Informasi</th>
+                <th class="p-3.5">Informasi diminta</th>
+                <th class="p-3.5 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="dashboardTableBody" class="divide-y divide-slate-100 text-slate-700">
+              <!-- Rows populated by JS -->
+            </tbody>
+          </table>
+          <div id="noDataState" class="hidden p-12 text-center text-slate-400 space-y-2">
+            <i data-lucide="folder-open" class="w-10 h-10 mx-auto stroke-1"></i>
+            <p>Belum ada data permohonan masuk</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Dashboard Footer -->
+      <div class="p-3 bg-white border-t border-slate-200 text-center text-[11px] text-slate-400 shrink-0">
+        Sistem Informasi Manajemen Permohonan Informasi • SMAN 1 Tasikmalaya
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="detailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center hidden p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 max-w-xl w-full max-h-[85vh] overflow-y-auto space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-base text-slate-800 flex items-center gap-2">
+          <i data-lucide="file-text" class="w-5 h-5 text-brand-600"></i> Detail Permohonan Informasi
+        </h3>
+        <button onclick="closeDetailModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <div id="detailContent" class="space-y-3 text-xs text-slate-700 leading-relaxed">
+        <!-- JS rendered content -->
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex justify-end">
+        <button onclick="closeDetailModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold text-slate-600 transition">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Tutorial Apps Script -->
+  <div id="configModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center hidden p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-2 text-brand-600">
+          <i data-lucide="file-spreadsheet" class="w-6 h-6"></i>
+          <div>
+            <h3 class="font-bold text-lg text-slate-800">Integrasi Google Spreadsheet</h3>
+            <p class="text-xs text-slate-500">Koneksikan formulir ini langsung ke Google Sheets Anda</p>
+          </div>
+        </div>
+        <button onclick="closeConfigModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <!-- Steps Overview -->
+      <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
+        
+        <div class="bg-brand-50/70 p-4 rounded-xl border border-brand-100 text-brand-900 space-y-2">
+          <h4 class="font-bold flex items-center gap-1.5 text-brand-800">
+            <i data-lucide="list-ordered" class="w-4 h-4"></i> Langkah-Langkah Integrasi:
+          </h4>
+          <ol class="list-decimal pl-5 space-y-1 text-xs">
+            <li>Buka <strong>Google Sheets baru</strong> di browser Anda.</li>
+            <li>Klik menu <strong>Ekstensi (Extensions)</strong> &gt; pilih <strong>Apps Script</strong>.</li>
+            <li>Hapus semua kode bawaan, lalu **salin kode di bawah ini** dan paste ke editor Apps Script.</li>
+            <li>Klik **Simpan (Save/Ctrl+S)**, lalu klik tombol **Terapkan (Deploy)** &gt; **Penerapan Baru (New Deployment)**.</li>
+            <li>Pilih Jenis: **Aplikasi Web (Web App)**.</li>
+            <li>Atur <i>Who has access / Siapa yang memiliki akses</i> menjadi <strong class="text-brand-700">Siapa saja (Anyone)</strong>.</li>
+            <li>Klik **Terapkan (Deploy)**, izinkan akses Google Account Anda, lalu **salin Web App URL** yang didapatkan.</li>
+            <li>Tempelkan Web App URL tersebut pada kolom di bawah lalu klik **Simpan & Hubungkan**.</li>
+          </ol>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="font-semibold text-slate-800 flex items-center gap-1.5">
+              <i data-lucide="code" class="w-4 h-4 text-brand-600"></i> Kode Google Apps Script:
+            </span>
+            <button onclick="copyAppsScriptCode()" id="copyCodeBtn" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 transition">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>Salin Kode</span>
+            </button>
+          </div>
+        
+          <pre id="scriptCodeBlock" class="bg-slate-900 text-emerald-400 p-4 rounded-xl text-[11px] overflow-x-auto font-mono max-h-56 leading-relaxed select-all">
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    // Baris Header jika sheet masih kosong
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        "Waktu Pengiriman", 
+        "Nama Lengkap / Badan Publik", 
+        "No. KTP / SIM / Paspor", 
+        "No. Pengesahan Legalitas", 
+        "Alamat Lengkap", 
+        "Pekerjaan", 
+        "No. Telepon / WA", 
+        "Email", 
+        "Jenis Informasi", 
+        "Informasi yang Dibutuhkan", 
+        "Cara Memperoleh Informasi", 
+        "Cara Mendapatkan Salinan", 
+        "Tujuan Permohonan Informasi", 
+        "Status File KTP", 
+        "Status File Kemenkumham", 
+        "Status File Kesbangpol", 
+        "Status File Kartu Pers"
+      ]);
+      sheet.getRange(1, 1, 1, 17).setFontWeight("bold").setBackground("#e2e8f0");
+    }
+    
+    // Tambahkan data baris baru
+    sheet.appendRow([
+      new Date(),
+      data.nama_lengkap || "",
+      data.no_ktp || "",
+      data.no_pengesahan || "",
+      data.alamat || "",
+      data.pekerjaan || "",
+      data.no_hp || "",
+      data.email || "",
+      data.jenis_informasi || "",
+      data.informasi_dibutuhkan || "",
+      data.cara_memperoleh || "",
+      data.cara_salinan || "",
+      data.tujuan_permohonan || "",
+      data.file_ktp || "-",
+      data.file_kemenkumham || "-",
+      data.file_kesbangpol || "-",
+      data.file_pers || "-"
+    ]);
+    
+    return ContentService.createTextOutput(JSON.stringify({result: "success"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({result: "error", error: err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}</pre>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100">
+          <label class="block font-semibold text-slate-800 mb-1.5">
+            Masukkan Web App URL (Hasil Deploy Apps Script):
+          </label>
+          <input type="url" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/AKfycbx.../exec" class="input-field">
+        </div>
+
+        <!-- Status Webhook Saat Ini -->
+        <div id="connectedStatus" class="hidden p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between">
+          <span class="flex items-center gap-2 font-medium">
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+            Terhubung ke Google Spreadsheet!
+          </span>
+          <button type="button" onclick="resetWebhookUrl()" class="text-xs text-red-600 hover:underline font-semibold">Putuskan / Hapus URL</button>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-4 border-t border-slate-100">
+        <button onclick="closeConfigModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-semibold text-slate-600 transition">Batal</button>
+        <button onclick="saveScriptUrl()" class="px-5 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-semibold shadow transition">Simpan & Hubungkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-sm hidden flex items-center gap-3 z-50 border border-slate-800">
+    <i id="toastIcon" data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+    <span id="toastMsg">Data berhasil dikirim!</span>
+  </div>
+
+  <script>
+    // Initialize icons
+    lucide.createIcons();
+
+    let SCRIPT_URL = localStorage.getItem('google_script_url') || '';
+    let dashboardDataList = [];
+
+    // Periksa status konfigurasi & auth saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAdminButtonVisibility();
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('admin') === 'true') {
+        openLoginModal();
+      }
+    });
+
+    // ADMIN AUTHENTICATION
+    function openLoginModal() {
+      // jika sudah login, langsung buka dashboard
+      if (sessionStorage.getItem('admin_authenticated') === 'true') {
+        openDashboardModal();
+        return;
+      }
+      document.getElementById('loginError').classList.add('hidden');
+      document.getElementById('loginModal').classList.remove('hidden');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.add('hidden');
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('loginUsername').value.trim();
+      const pass = document.getElementById('loginPassword').value.trim();
+
+      if (user === 'admin' && pass === 'Sman1tsM') {
+        sessionStorage.setItem('admin_authenticated', 'true');
+        closeLoginModal();
+        openDashboardModal();
+        showToast('Login berhasil!');
+      } else {
+        document.getElementById('loginError').classList.remove('hidden');
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('admin_authenticated');
+      closeDashboardModal();
+      showToast('Anda telah logout');
+    }
+
+    // DASHBOARD MANAGEMENT
+    function openDashboardModal() {
+      document.getElementById('dashboardModal').classList.remove('hidden');
+      loadDashboardData();
+    }
+
+    function closeDashboardModal() {
+      document.getElementById('dashboardModal').classList.add('hidden');
+    }
+
+    function loadDashboardData() {
+      // Ambil data lokal (mocking & submissions)
+      dashboardDataList = JSON.parse(localStorage.getItem('submitted_forms') || '[]');
+      renderDashboardTable(dashboardDataList);
+    }
+
+    function renderDashboardTable(data) {
+      const tbody = document.getElementById('dashboardTableBody');
+      const noData = document.getElementById('noDataState');
+      const badge = document.getElementById('totalRecordsBadge');
+      
+      tbody.innerHTML = '';
+      badge.innerText = `${data.length} Permohonan`;
+
+      if (data.length === 0) {
+        noData.classList.remove('hidden');
+        return;
+      }
+
+      noData.classList.add('hidden');
+
+      data.forEach((item, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/80 transition';
+        const dateStr = item.timestamp ? new Date(item.timestamp).toLocaleString('id-ID') : '-';
+
+        tr.innerHTML = `
+          <td class="p-3.5 text-slate-500 whitespace-nowrap">${dateStr}</td>
+          <td class="p-3.5 font-semibold text-slate-800">${item.nama_lengkap || '-'}</td>
+          <td class="p-3.5 text-slate-600">
+            <div>${item.email || '-'}</div>
+            <div class="text-[11px] text-slate-400">${item.no_hp || '-'}</div>
+          </td>
+          <td class="p-3.5">
+            <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md font-medium text-[11px] inline-block">
+              ${item.jenis_informasi || '-'}
+            </span>
+          </td>
+          <td class="p-3.5 max-w-xs truncate text-slate-600">${item.informasi_dibutuhkan || '-'}</td>
+          <td class="p-3.5 text-center">
+            <button onclick="viewDetail(${idx})" class="px-2.5 py-1 bg-brand-50 hover:bg-brand-100 text-brand-700 rounded-lg text-xs font-semibold inline-flex items-center gap-1 transition">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i> Detail
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      lucide.createIcons();
+    }
+
+    function filterDashboardData() {
+      const q = document.getElementById('dashboardSearch').value.toLowerCase();
+      const filtered = dashboardDataList.filter(item => {
+        return (item.nama_lengkap && item.nama_lengkap.toLowerCase().includes(q)) ||
+               (item.email && item.email.toLowerCase().includes(q)) ||
+               (item.no_hp && item.no_hp.toLowerCase().includes(q)) ||
+               (item.informasi_dibutuhkan && item.informasi_dibutuhkan.toLowerCase().includes(q));
+      });
+      renderDashboardTable(filtered);
+    }
+
+    function viewDetail(idx) {
+      const item = dashboardDataList[idx];
+      if (!item) return;
+
+      const container = document.getElementById('detailContent');
+      container.innerHTML = `
+        <div class="grid grid-cols-2 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200/60">
+          <div><span class="text-slate-400 block text-[10px] uppercase font-bold">Waktu</span> <span class="font-medium">${item.timestamp ? new Date(item.timestamp).toLocaleString('id-ID') : '-'}</span></div>
+          <div><span class="text-slate-400 block text-[10px] uppercase font-bold">Jenis Informasi</span> <span class="font-medium">${item.jenis_informasi || '-'}</span></div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-slate-800 text-xs border-b pb-1">Identitas Pemohon</div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><strong>Nama:</strong> ${item.nama_lengkap || '-'}</div>
+            <div><strong>No. KTP/SIM:</strong> ${item.no_ktp || '-'}</div>
+            <div><strong>No. Pengesahan:</strong> ${item.no_pengesahan || '-'}</div>
+            <div><strong>Pekerjaan:</strong> ${item.pekerjaan || '-'}</div>
+            <div><strong>No HP:</strong> ${item.no_hp || '-'}</div>
+            <div><strong>Email:</strong> ${item.email || '-'}</div>
+            <div class="col-span-2"><strong>Alamat:</strong> ${item.alamat || '-'}</div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-slate-800 text-xs border-b pb-1">Detail Permohonan</div>
+          <p><strong>Rincian Informasi:</strong> ${item.informasi_dibutuhkan || '-'}</p>
+          <p><strong>Cara Memperoleh:</strong> ${item.cara_memperoleh || '-'}</p>
+          <p><strong>Cara Salinan:</strong> ${item.cara_salinan || '-'}</p>
+          <p><strong>Tujuan Permohonan:</strong> ${item.tujuan_permohonan || '-'}</p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="font-bold text-slate-800 text-xs border-b pb-1">Status Berkas Lampiran</div>
+          <div class="grid grid-cols-2 gap-2 text-[11px]">
+            <div class="p-2 bg-slate-50 rounded border">KTP: <strong>${item.file_ktp || '-'}</strong></div>
+            <div class="p-2 bg-slate-50 rounded border">Kemenkumham: <strong>${item.file_kemenkumham || '-'}</strong></div>
+            <div class="p-2 bg-slate-50 rounded border">Kesbangpol: <strong>${item.file_kesbangpol || '-'}</strong></div>
+            <div class="p-2 bg-slate-50 rounded border">Kartu Pers: <strong>${item.file_pers || '-'}</strong></div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('detailModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.add('hidden');
+    }
+
+    function checkAdminButtonVisibility() {
+      const headerBtn = document.getElementById('configBtnHeader');
+      if (SCRIPT_URL) {
+        headerBtn.classList.add('hidden');
+      } else {
+        headerBtn.classList.remove('hidden');
+      }
+    }
+
+    function openConfigModal() {
+      document.getElementById('scriptUrlInput').value = SCRIPT_URL;
+      const statusBox = document.getElementById('connectedStatus');
+      if (SCRIPT_URL) {
+        statusBox.classList.remove('hidden');
+      } else {
+        statusBox.classList.add('hidden');
+      }
+      document.getElementById('configModal').classList.remove('hidden');
+    }
+
+    function closeConfigModal() {
+      document.getElementById('configModal').classList.add('hidden');
+    }
+
+    function resetWebhookUrl() {
+      if(confirm('Apakah Anda yakin ingin menghapus tautan Google Spreadsheet ini?')) {
+        SCRIPT_URL = '';
+        localStorage.removeItem('google_script_url');
+        document.getElementById('scriptUrlInput').value = '';
+        document.getElementById('connectedStatus').classList.add('hidden');
+        checkAdminButtonVisibility();
+        showToast('Tautan Spreadsheet berhasil dihapus.');
+      }
+    }
+
+    function copyAppsScriptCode() {
+      const codeText = document.getElementById('scriptCodeBlock').innerText;
+      
+      const textarea = document.createElement('textarea');
+      textarea.value = codeText;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      const copyBtn = document.getElementById('copyCodeBtn');
+      copyBtn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i><span>Tersalin!</span>`;
+      lucide.createIcons();
+
+      setTimeout(() => {
+        copyBtn.innerHTML = `<i data-lucide="copy" class="w-3.5 h-3.5"></i><span>Salin Kode</span>`;
+        lucide.createIcons();
+      }, 3000);
+    }
+
+    function saveScriptUrl() {
+      const url = document.getElementById('scriptUrlInput').value.trim();
+      if(url) {
+        SCRIPT_URL = url;
+        localStorage.setItem('google_script_url', url);
+        showToast('URL Google Apps Script berhasil tersimpan!');
+        checkAdminButtonVisibility();
+        closeConfigModal();
+      } else {
+        showToast('Masukkan URL Web App yang valid!');
+      }
+    }
+
+    function updateFileName(input, targetId) {
+      const target = document.getElementById(targetId);
+      if (input.files && input.files[0]) {
+        target.innerText = input.files[0].name;
+        target.classList.remove('text-slate-400');
+        target.classList.add('text-brand-600', 'font-semibold');
+      } else {
+        target.innerText = 'Belum ada file';
+        target.classList.add('text-slate-400');
+        target.classList.remove('text-brand-600', 'font-semibold');
+      }
+    }
+
+    function clearForm() {
+      document.querySelectorAll('[id$="_name"]').forEach(el => {
+        el.innerText = 'Belum ada file';
+        el.classList.add('text-slate-400');
+        el.classList.remove('text-brand-600', 'font-semibold');
+      });
+    }
+
+    const fileToBase64 = file => new Promise((resolve, reject) => {
+      if(!file) return resolve('');
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
+      const originalBtnText = submitBtn.innerHTML;
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      const caraSalinan = Array.from(document.querySelectorAll('input[name="cara_salinan"]:checked')).map(cb => cb.value).join(', ');
+      const tujuanPermohonan = Array.from(document.querySelectorAll('input[name="tujuan_permohonan"]:checked')).map(cb => cb.value).join(', ');
+
+      if(!caraSalinan) {
+        showToast('Pilih setidaknya satu "Cara Mendapatkan Salinan"');
+        return;
+      }
+      if(!tujuanPermohonan) {
+        showToast('Pilih setidaknya satu "Tujuan Permohonan"');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Mengirim...</span>`;
+      lucide.createIcons();
+
+      try {
+        const fileKtp = await fileToBase64(document.getElementById('file_ktp').files[0]);
+        const fileKemenkumham = await fileToBase64(document.getElementById('file_kemenkumham').files[0]);
+        const fileKesbangpol = await fileToBase64(document.getElementById('file_kesbangpol').files[0]);
+        const filePers = await fileToBase64(document.getElementById('file_pers').files[0]);
+
+        const payload = {
+          timestamp: new Date().toISOString(),
+          nama_lengkap: formData.get('nama_lengkap'),
+          no_ktp: formData.get('no_ktp'),
+          no_pengesahan: formData.get('no_pengesahan'),
+          alamat: formData.get('alamat'),
+          pekerjaan: formData.get('pekerjaan'),
+          no_hp: formData.get('no_hp'),
+          email: formData.get('email'),
+          jenis_informasi: formData.get('jenis_informasi'),
+          informasi_dibutuhkan: formData.get('informasi_dibutuhkan'),
+          cara_memperoleh: formData.get('cara_memperoleh'),
+          cara_salinan: caraSalinan,
+          tujuan_permohonan: tujuanPermohonan,
+          file_ktp: fileKtp ? 'File Uploaded' : 'Tidak Ada File',
+          file_kemenkumham: fileKemenkumham ? 'File Uploaded' : 'Tidak Ada File',
+          file_kesbangpol: fileKesbangpol ? 'File Uploaded' : 'Tidak Ada File',
+          file_pers: filePers ? 'File Uploaded' : 'Tidak Ada File'
+        };
+
+        // Selalu simpan copy lokal untuk dashboard
+        let mockStorage = JSON.parse(localStorage.getItem('submitted_forms') || '[]');
+        mockStorage.unshift(payload);
+        localStorage.setItem('submitted_forms', JSON.stringify(mockStorage));
+
+        if(SCRIPT_URL) {
+          await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          showToast('Permohonan berhasil dikirim ke Google Spreadsheet!');
+        } else {
+          showToast('Permohonan terkirim dan tersimpan di database lokal!');
+        }
+
+        form.reset();
+        clearForm();
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal mengirim permohonan. Coba beberapa saat lagi.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+        lucide.createIcons();
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
